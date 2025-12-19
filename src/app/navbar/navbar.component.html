@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg bg-white shadow-sm px-3">
+
+  <div class="container-fluid">
+
+
+    <a class="navbar-brand fw-bold text-primary" routerLink="/">
+      <i class="bi bi-bank2"></i> BankingApp
+    </a>
+
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+
+
+      <ul class="navbar-nav me-auto gap-lg-2 mt-2 mt-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" routerLink="/">
+            <i class="bi bi-house"></i> Home
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" routerLink="/accounts">
+            <i class="bi bi-wallet2"></i> Accounts
+          </a>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle fw-semibold"
+            role="button"
+            data-bs-toggle="dropdown">
+            <i class="bi bi-people"></i> Customers
+          </a>
+
+          <ul class="dropdown-menu shadow border-0 rounded-3">
+            <li>
+              <a class="dropdown-item" routerLink="/customers">
+                <i class="bi bi-search"></i> Search Customers
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/new-customer">
+                <i class="bi bi-person-plus"></i> New Customer
+              </a>
+            </li>
+          </ul>
+        </li>
+
+
+
+      </ul>
+
+
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle fw-semibold d-flex align-items-center gap-2"
+            role="button"
+            data-bs-toggle="dropdown">
+
+            <i class="bi bi-person-circle fs-5"></i>
+            <span>{{ accountName }}</span>
+
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+            <li>
+              <button class="dropdown-item text-danger" (click)="logout()">
+                <i class="bi bi-box-arrow-right"></i> Logout
+              </button>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+
+    </div>
+  </div>
+</nav>

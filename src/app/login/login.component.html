@@ -1,0 +1,44 @@
+<div class="login-container">
+
+  <div class="login-card">
+
+    <h2 class="login-title">
+      Authentification
+    </h2>
+
+    <div class="input-group">
+      <label class="input-label">Login</label>
+      <div class="input-wrapper">
+        <svg class="input-icon" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z"/>
+        </svg>
+        <input
+          [(ngModel)]="username"
+          type="text"
+          class="form-input"
+        >
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">Mot de passe</label>
+      <div class="input-wrapper">
+        <svg class="input-icon" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 1a4 4 0 00-4 4v3H3a1 1 0 00-1 1v5a1 1 0 001 1h10a1 1 0 001-1v-5a1 1 0 00-1-1h-1V5a4 4 0 00-4-4zm-2 4a2 2 0 114 0v3H6V5z"/>
+        </svg>
+        <input
+          [(ngModel)]="password"
+          type="password"
+          class="form-input"
+        >
+      </div>
+    </div>
+
+    <button
+      (click)="login()"
+      class="btn-login">
+      Se connecter
+    </button>
+
+  </div>
+</div>
