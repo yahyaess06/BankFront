@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { CustomerService } from '../services/customer.service';
+import { CustomerService } from '../Clientservice/customer.service';
 import { Customer } from '../model/customer.model';
 
 @Component({

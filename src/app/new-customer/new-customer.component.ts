@@ -6,7 +6,7 @@ import {
   Validators
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CustomerService } from '../services/customer.service';
+import { CustomerService } from '../Clientservice/customer.service';
 
 @Component({
   selector: 'app-new-customer',

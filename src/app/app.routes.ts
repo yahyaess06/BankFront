@@ -21,7 +21,7 @@ export const routes: Routes = [
       { path: 'customers/edit/:id', component: EditCustomerComponent },
       { path: 'accounts', component: AccountsComponent },
       { path: 'new-customer', component: NewCustomerComponent },
-      { path: 'customer-accounts/:id', component: CustomerAccountsComponent },
+      { path: 'customer-accounts', component: CustomerAccountsComponent },
       // Redirection par défaut après login
       { path: '', redirectTo: 'customers', pathMatch: 'full' }
     ]

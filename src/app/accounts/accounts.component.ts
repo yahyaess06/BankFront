@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
+import {ComptesS} from '../CompteService/comptes-s';
+import {ActivatedRoute} from '@angular/router';
+import {Operation} from '../CreditModel/operation';
+import {Virement} from '../virementModel/virement';
 
 @Component({
   selector: 'app-accounts',
@@ -12,22 +16,18 @@ import { Observable, of } from 'rxjs';
   ],
   templateUrl: './accounts.component.html'
 })
-export class AccountsComponent {
+export class AccountsComponent implements OnInit{
 
-
-
-
-accountFormGroup!: UntypedFormGroup;
   operationFromGroup!: UntypedFormGroup;
 
-  accountObservable!: Observable<any>;
-  errorMessage = '';
-  currentPage = 0;
+  Operations:any
 
-  constructor(private fb: UntypedFormBuilder) {
-    this.accountFormGroup = this.fb.group({
-      accountId: ['']
-    });
+  id:any
+  op: Operation=new Operation();
+v: Virement=new Virement();
+
+  constructor(private fb: UntypedFormBuilder,private cs:ComptesS
+              ,private router:ActivatedRoute,private cd:ChangeDetectorRef) {
 
     this.operationFromGroup = this.fb.group({
       operationType: ['DEBIT'],
@@ -35,27 +35,68 @@ accountFormGroup!: UntypedFormGroup;
       description: [''],
       accountDestination: ['']
     });
-
-    this.accountObservable = of({
-      accountId: 'ACC-REDA-001',
-      balance: 15000,
-      totalPages: 3,
-      accountOperationDTOS: [
-        { id: 1, operationDate: new Date(), type: 'DEBIT', amount: 200 },
-        { id: 2, operationDate: new Date(), type: 'CREDIT', amount: 500 }
-      ]
-    });
   }
-
-  handleSearchAccount() {
-    console.log(this.accountFormGroup.value);
+  ngOnInit(): void {
+    this.id = this.router.snapshot.queryParamMap.get('idc');
+    console.log(this.id)
+    this.getOperations();
   }
+  getOperations(){
+      this.cs.getOpbyCid(this.id).subscribe({
+        next:(res:any)=>{
+          console.log(res)
+        this.Operations=res;
+        this.cd.detectChanges();
+        },error:(err:any)=>{
+    console.log(err)}
+      })
+    }
 
   handleAccountOperation() {
-    alert('Operation saved (demo)');
-  }
+    let TypeOperation=this.operationFromGroup.value.operationType;
+    let mantant =this.operationFromGroup.value.amount
+    this.id=this.router.snapshot.queryParamMap.get('idc');
+    this.op.id=this.id;
+    this.op.mantant=mantant;
+    if(TypeOperation=="DEBIT"){
+     this.cs.effectuerDebit(this.op).subscribe({
+       next:(res:any)=>{
+         this.getOperations();
+         this.cd.detectChanges();
+         alert('operation effectuer avec succees');
+       },error:err=>{
+         console.log(err)
+       }
+     })
+    }
+    else if(TypeOperation=="CREDIT"){
 
-  gotoPage(page: number) {
-    this.currentPage = page;
+      this.cs.effectuerCredit(this.op).subscribe({
+        next:(res:any)=>{
+          alert('operation effectuer avec succees');
+          this.getOperations();
+          this.cd.detectChanges();
+      },error:err=>{
+          console.log(err)
+        }
+      })
+    }
+    else{
+let idrecoie= this.operationFromGroup.value.accountDestination;
+
+this.v.idCompteverse=this.id;
+this.v.mantant=mantant;
+this.v.idCompterecoie=idrecoie;
+
+this.cs.effectuervir(this.v).subscribe({
+  next:(res:any)=>{
+    alert('operation effectuer avec succees');
+    this.getOperations();
+    this.cd.detectChanges();
+  },error:err=>{
+    console.log(err)
+  }
+})
+    }
   }
 }

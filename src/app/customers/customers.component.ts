@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Customer } from '../model/customer.model';
-import { CustomerService } from '../services/customer.service';
+import { CustomerService } from '../Clientservice/customer.service';
 
 @Component({
   selector: 'app-customers',
@@ -11,12 +11,14 @@ import { CustomerService } from '../services/customer.service';
   imports: [
     CommonModule,       // ✅ FIX ICI
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    FormsModule
   ],
   templateUrl: './customers.component.html'
 })
 export class CustomersComponent implements OnInit {
 
+  acc_id!: any;
   clients!: Customer[];
   searchFormGroup!: UntypedFormGroup;
   errorMessage = '';
@@ -24,7 +26,8 @@ export class CustomersComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
-    private cs: CustomerService
+    private cs: CustomerService,
+    private dt: ChangeDetectorRef
   ) {
     this.searchFormGroup = this.fb.group({
       keyword: ['']
@@ -38,7 +41,9 @@ export class CustomersComponent implements OnInit {
   getClients(): void {
     const keyword = this.searchFormGroup.value.keyword.trim();
     this.cs.getCustomers(keyword).subscribe({
-      next: (data: Customer[]) => this.clients = data,
+      next: (data: Customer[]) => {this.clients = data;
+        this.dt.detectChanges();
+        },
       error: (err) => console.log(err)
     });
   }
@@ -51,7 +56,21 @@ export class CustomersComponent implements OnInit {
     }
   }
 
-  handleCustomerAccounts(c: Customer) {
-    this.router.navigateByUrl('/customer-accounts/' + c.id);
+  handleCustomerAccounts(client: Customer) {
+    this.router.navigate(['customer-accounts'],{
+      queryParams:{
+        id:client.id,
+        name:client.name,
+        email:client.email
+      }
+    })
+  }
+
+  opps() {
+    this.router.navigate(['accounts'],{
+      queryParams:{
+        idc:this.acc_id
+      }
+    })
   }
 }

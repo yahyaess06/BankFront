@@ -6,7 +6,6 @@
     "analytics": false
   },
   "newProjectRoot": "projects",
-  "defaultProject": "bankfront",
   "projects": {
     "bankfront": {
       "projectType": "application",
