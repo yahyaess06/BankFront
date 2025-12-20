@@ -21,10 +21,12 @@
               class="form-control"
               formControlName="name">
 
-            <small class="text-danger"
-                   [@if]="newCustomerFormGroup.controls['name'].touched && newCustomerFormGroup.controls['name'].errors?.['required']">
-              Name is required
-            </small>
+            @if (newCustomerFormGroup.controls['name'].touched &&
+            newCustomerFormGroup.controls['name'].errors?.['required']) {
+              <small class="text-danger">
+                Name is required
+              </small>
+            }
           </div>
 
           <!-- Email Address -->
@@ -35,10 +37,12 @@
               class="form-control"
               formControlName="email">
 
-            <small class="text-danger"
-                   [@if]="newCustomerFormGroup.controls['email'].touched && newCustomerFormGroup.controls['email'].errors?.['email']">
-              Invalid email format
-            </small>
+            @if (newCustomerFormGroup.controls['email'].touched &&
+            newCustomerFormGroup.controls['email'].errors?.['email']) {
+              <small class="text-danger">
+                Invalid email format
+              </small>
+            }
           </div>
 
           <!-- Submit Button -->

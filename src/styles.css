@@ -1,3 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+/* Bootstrap CSS */
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
+/* Bootstrap Icons */
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+/* Tailwind CSS */
 @import "tailwindcss";
+
+/* Tes styles globaux ici */
+body {
+  font-family: Arial, sans-serif;
+}

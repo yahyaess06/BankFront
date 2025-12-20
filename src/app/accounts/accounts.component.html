@@ -2,6 +2,7 @@
 
   <div class="row g-3">
 
+    <!-- Account Lookup -->
     <div class="col-lg-6">
       <div class="shadow-sm rounded-4 p-4 bg-white">
 
@@ -12,11 +13,7 @@
         <form [formGroup]="accountFormGroup" (ngSubmit)="handleSearchAccount()">
           <div class="row align-items-center">
             <div class="col-md-8">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter Account ID"
-                formControlName="accountId">
+              <input type="text" class="form-control" placeholder="Enter Account ID" formControlName="accountId">
             </div>
             <div class="col-md-4 d-grid">
               <button class="btn btn-primary">
@@ -26,15 +23,17 @@
           </div>
         </form>
 
-        <div class="mt-3" *ngIf="errorMessage; else loadingBlock">
-          <span class="text-danger">{{ errorMessage }}</span>
+        <!-- Error Message -->
+        <div class="mt-3" *ngIf="errorMessage as err; else loadingBlock" role="alert">
+          <span class="text-danger">{{ err }}</span>
         </div>
 
+        <!-- Loading Block -->
         <ng-template #loadingBlock>
           <div class="text-muted mt-3">Fetching account data...</div>
         </ng-template>
 
-
+        <!-- Account Details -->
         <ng-container *ngIf="accountObservable | async as accountDetails">
 
           <hr class="my-4">
@@ -65,24 +64,20 @@
               <tr *ngFor="let op of accountDetails.accountOperationDTOS">
                 <td>{{ op.id }}</td>
                 <td>{{ op.operationDate | date:'dd/MM/yyyy HH:mm:ss' }}</td>
-                <td>
-                  <span class="badge bg-secondary">{{ op.type }}</span>
-                </td>
-                <td class="text-end">
-                  {{ op.amount | number:'1.2-2' }}
-                </td>
+                <td><span class="badge bg-secondary">{{ op.type }}</span></td>
+                <td class="text-end">{{ op.amount | number:'1.2-2' }}</td>
               </tr>
               </tbody>
             </table>
           </div>
 
+          <!-- Pagination -->
           <div class="d-flex flex-wrap gap-2 mt-3">
-            <button
-              *ngFor="let item of [].constructor(accountDetails.totalPages); let page=index"
-              class="btn btn-sm"
-              [ngClass]="page === currentPage ? 'btn-primary' : 'btn-outline-primary'"
-              (click)="gotoPage(page)">
-              {{ page }}
+            <button *ngFor="let page of [].constructor(accountDetails.totalPages); let i = index"
+                    class="btn btn-sm"
+                    [ngClass]="i === currentPage ? 'btn-primary' : 'btn-outline-primary'"
+                    (click)="gotoPage(i)">
+              {{ i }}
             </button>
           </div>
 
@@ -90,8 +85,9 @@
       </div>
     </div>
 
+    <!-- New Operation -->
     <div class="col-lg-6">
-      <div class="shadow-sm rounded-4 p-4 bg-white" *ngIf="accountObservable">
+      <div class="shadow-sm rounded-4 p-4 bg-white" *ngIf="accountObservable | async">
 
         <h5 class="mb-4 text-success">
           <i class="bi bi-arrow-left-right"></i> New Operation
@@ -99,55 +95,24 @@
 
         <form [formGroup]="operationFromGroup" (ngSubmit)="handleAccountOperation()">
 
-
           <div class="d-flex gap-3 mb-3">
-            <div class="form-check">
-              <input class="form-check-input" type="radio"
-                     value="DEBIT" formControlName="operationType">
-              <label class="form-check-label">Debit</label>
-            </div>
-
-            <div class="form-check">
-              <input class="form-check-input" type="radio"
-                     value="CREDIT" formControlName="operationType">
-              <label class="form-check-label">Credit</label>
-            </div>
-
-            <div class="form-check">
-              <input class="form-check-input" type="radio"
-                     value="TRANSFER" formControlName="operationType">
-              <label class="form-check-label">Transfer</label>
+            <div class="form-check" *ngFor="let type of ['DEBIT', 'CREDIT', 'TRANSFER']">
+              <input class="form-check-input" type="radio" [value]="type" formControlName="operationType">
+              <label class="form-check-label">{{ type | titlecase }}</label>
             </div>
           </div>
 
-
-          <div class="mb-3"
-               *ngIf="operationFromGroup.value.operationType === 'TRANSFER'">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Destination Account ID"
-              formControlName="accountDestination">
+          <div class="mb-3" *ngIf="operationFromGroup.value.operationType === 'TRANSFER'">
+            <input type="text" class="form-control" placeholder="Destination Account ID" formControlName="accountDestination">
           </div>
-
 
           <div class="mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Amount"
-              formControlName="amount">
+            <input type="text" class="form-control" placeholder="Amount" formControlName="amount">
           </div>
-
 
           <div class="mb-4">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Operation description"
-              formControlName="description">
+            <input type="text" class="form-control" placeholder="Operation description" formControlName="description">
           </div>
-
 
           <div class="d-grid">
             <button class="btn btn-success btn-lg">

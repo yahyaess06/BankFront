@@ -1,11 +1,12 @@
-.card {
-  background-color: #ffffff;
+.container {
+  margin-top: 4rem;
 }
 
-.form-control {
-  border-radius: 0.6rem;
+.card {
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
 }
 
 .btn {
-  border-radius: 0.6rem;
+  border-radius: 0.375rem;
 }

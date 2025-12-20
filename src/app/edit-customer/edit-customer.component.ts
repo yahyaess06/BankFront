@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../services/customer.service';
 import { Customer } from '../model/customer.model';
 
 @Component({
   selector: 'app-edit-customer',
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './edit-customer.component.html',
-  imports: [
-    ReactiveFormsModule
-  ],
   styleUrls: ['./edit-customer.component.css']
 })
 export class EditCustomerComponent implements OnInit {
@@ -37,7 +36,7 @@ export class EditCustomerComponent implements OnInit {
 
   loadCustomer(): void {
     this.customerService.getCustomer(this.customerId).subscribe(
-      (customer: any) => { // <-- ici on met `any` pour éviter l’erreur TS
+      (customer: any) => {
         this.customerForm.patchValue({
           name: customer.name,
           email: customer.email

@@ -1,22 +1,23 @@
 import { Component } from '@angular/core';
-import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import {AsyncPipe, DatePipe, DecimalPipe, NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-accounts',
+  standalone: true,
   imports: [
-    ReactiveFormsModule,
-    AsyncPipe,
-    DecimalPipe,
-    DatePipe,
-    NgClass
+    CommonModule,
+    ReactiveFormsModule
   ],
   templateUrl: './accounts.component.html'
 })
 export class AccountsComponent {
 
-  accountFormGroup!: UntypedFormGroup;
+
+
+
+accountFormGroup!: UntypedFormGroup;
   operationFromGroup!: UntypedFormGroup;
 
   accountObservable!: Observable<any>;
@@ -24,7 +25,6 @@ export class AccountsComponent {
   currentPage = 0;
 
   constructor(private fb: UntypedFormBuilder) {
-
     this.accountFormGroup = this.fb.group({
       accountId: ['']
     });

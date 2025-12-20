@@ -1,55 +1,65 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Customer } from '../model/customer.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
 
-  constructor(private http: HttpClient) {}
-  // searchCustomers(motcle: string) {
-  //   return this.http.get<any[]>(`http://localhost:9000/customers/search`, {
-  //     params: { motcle }
-  //   });
-  // }
-
+  private http = inject(HttpClient);
+  private readonly API = 'http://localhost:9000';
 
   // ===== GET ALL CLIENTS =====
-  getCustomers(keyword: string) {
-    return this.http.get("http://localhost:9000/Clients?motcle="+keyword); }
+  getCustomers(keyword: string): Observable<any> {
+    return this.http.get(
+      `${this.API}/Clients`,
+      { params: { motcle: keyword } }
+    );
+  }
 
   // ===== ADD CLIENT =====
-  addCustomer(customer: Customer) {
-    return this.http.post("http://localhost:9000/ajouterClient", customer);
+  addCustomer(customer: Customer): Observable<Customer> {
+    return this.http.post<Customer>(
+      `${this.API}/ajouterClient`,
+      customer
+    );
   }
 
   // ===== GET ONE CLIENT =====
-  getCustomer(id: number) {
-    return this.http.get("http://localhost:9000/get/" + id);
+  getCustomer(id: number): Observable<Customer> {
+    return this.http.get<Customer>(
+      `${this.API}/get/${id}`
+    );
   }
 
   // ===== UPDATE CLIENT =====
-  updateCustomer(customer: Customer) {
-    return this.http.put("http://localhost:9000/modifier", customer);
+  updateCustomer(customer: Customer): Observable<Customer> {
+    return this.http.put<Customer>(
+      `${this.API}/modifier`,
+      customer
+    );
   }
 
   // ===== DELETE CLIENT =====
-  deleteCl(id: number) {
-    return this.http.delete("http://localhost:9000/supprimer/" + id);
-  }
-  getCustomerAccounts(customerId: number) {
-    return this.http.get<any>(
-      'http://localhost:9000/customers/' + customerId + '/accounts'
+  deleteCl(id: number): Observable<void> {
+    return this.http.delete<void>(
+      `${this.API}/supprimer/${id}`
     );
   }
 
-  getAccountDetails(accountId: string) {
-    return this.http.get<any>(
-      'http://localhost:9000/accounts/' + accountId
+  // ===== CUSTOMER ACCOUNTS =====
+  getCustomerAccounts(customerId: number): Observable<any> {
+    return this.http.get(
+      `${this.API}/customers/${customerId}/accounts`
     );
   }
 
-
-
+  // ===== ACCOUNT DETAILS =====
+  getAccountDetails(accountId: string): Observable<any> {
+    return this.http.get(
+      `${this.API}/accounts/${accountId}`
+    );
+  }
 }

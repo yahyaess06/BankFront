@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
-import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators
+} from '@angular/forms';
+import { Router } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
-import {Router} from "@angular/router";
-import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-new-customer',
-  imports: [
-    ReactiveFormsModule,
-    NgIf
-  ],
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './new-customer.component.html'
 })
 export class NewCustomerComponent {
 
-  newCustomerFormGroup!: UntypedFormGroup;
+  newCustomerFormGroup: UntypedFormGroup;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -27,15 +29,15 @@ export class NewCustomerComponent {
     });
   }
 
-  handleSaveCustomer() {
+  handleSaveCustomer(): void {
     if (this.newCustomerFormGroup.valid) {
       this.customerService.addCustomer(this.newCustomerFormGroup.value)
         .subscribe({
-          next: (res) => {
+          next: () => {
             alert('Customer saved successfully!');
-            this.router.navigate(["/customers"]);
+            this.router.navigate(['/customers']);
           },
-          error: (err) => {
+          error: err => {
             console.error(err);
             alert('Error saving customer.');
           }

@@ -1,0 +1,11 @@
+.table-responsive {
+  margin-top: 1rem;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+.btn-warning, .btn-outline-danger, .btn-outline-success {
+  margin-right: 0.3rem;
+}

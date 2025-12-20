@@ -1,0 +1,17 @@
+.container-fluid {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.card {
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
+}
+
+.text-danger {
+  font-size: 0.85rem;
+}
+
+.btn-lg {
+  font-size: 1rem;
+}

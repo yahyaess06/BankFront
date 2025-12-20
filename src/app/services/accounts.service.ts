@@ -1,29 +1,56 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../../../FRONT-END-ANGULAR/src/environments/environment";
-import {Observable} from "rxjs";
-import {AccountDetails} from "../model/account.model";
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AccountDetails } from '../model/account.model';
+import { environment } from '../../environment/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountsService {
 
-  constructor(private http : HttpClient) { }
+  private http = inject(HttpClient);
 
-  public getAccount(accountId : string, page : number, size : number):Observable<AccountDetails>{
-    return this.http.get<AccountDetails>(environment.backendHost+"/accounts/"+accountId+"/pageOperations?page="+page+"&size="+size);
+  getAccount(
+    accountId: string,
+    page: number,
+    size: number
+  ): Observable<AccountDetails> {
+    return this.http.get<AccountDetails>(
+      `${environment.backendHost}/accounts/${accountId}/pageOperations`,
+      {
+        params: {
+          page,
+          size
+        }
+      }
+    );
   }
-  public debit(accountId : string, amount : number, description:string){
-    let data={accountId : accountId, amount : amount, description : description}
-    return this.http.post(environment.backendHost+"/accounts/debit",data);
+
+  debit(accountId: string, amount: number, description: string) {
+    return this.http.post(
+      `${environment.backendHost}/accounts/debit`,
+      { accountId, amount, description }
+    );
   }
-  public credit(accountId : string, amount : number, description:string){
-    let data={accountId : accountId, amount : amount, description : description}
-    return this.http.post(environment.backendHost+"/accounts/credit",data);
+
+  credit(accountId: string, amount: number, description: string) {
+    return this.http.post(
+      `${environment.backendHost}/accounts/credit`,
+      { accountId, amount, description }
+    );
   }
-  public transfer(accountSource: string,accountDestination: string, amount : number, description:string){
-    let data={accountSource, accountDestination, amount, description }
-    return this.http.post(environment.backendHost+"/accounts/transfer",data);
+
+  transfer(
+    accountSource: string,
+    accountDestination: string,
+    amount: number,
+    description: string
+  ) {
+    return this.http.post(
+      `${environment.backendHost}/accounts/transfer`,
+      { accountSource, accountDestination, amount, description }
+    );
   }
 }
