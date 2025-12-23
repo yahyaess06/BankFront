@@ -1,16 +1,13 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import { CommonModule, DecimalPipe, NgClass } from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import { CommonModule } from '@angular/common';
 import {ComptesS} from '../CompteService/comptes-s';
 
 @Component({
   selector: 'app-customer-accounts',
   standalone: true,
   imports: [
-    CommonModule,  // ✅ IMPORTANT pour *ngFor et pipes
-    RouterLink,
-    DecimalPipe,
-    NgClass
+    CommonModule
   ],
   templateUrl: './customer-accounts.component.html',
   styleUrls: ['./customer-accounts.component.css']
@@ -18,7 +15,7 @@ import {ComptesS} from '../CompteService/comptes-s';
 export class CustomerAccountsComponent implements OnInit {
 
   Comptes!: any;
-  Operations! :any;
+   status="activated";
 
   constructor(private router: ActivatedRoute,
               private route:Router,
@@ -54,4 +51,35 @@ ops(id:any){
     })
   }
 
+  suspendre(id:any) {
+     this.cs.suspendre(id).subscribe({
+       next:(res)=>{
+         if (res==true){
+           this.status="suspended";
+           this.cd.detectChanges();
+         }
+       },error:err=>console.log(err)
+     })
+  }
+
+  delete(id:any) {
+    confirm("vous voulez vraiment suprimmer ce compte?")
+this.cs.suprimmer(id).subscribe({
+  next:(res)=>{
+   this.getComptes()
+      this.cd.detectChanges();
+
+  },error:err=>console.log(err)
+})
+  }
+  activer(id:any) {
+     this.cs.activer(id).subscribe({
+       next:(res)=>{
+         if (res==true){
+           this.status="activated";
+           this.cd.detectChanges();
+         }
+       },error:err=>console.log(err)
+     })
+  }
 }

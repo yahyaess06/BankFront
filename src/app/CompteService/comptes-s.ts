@@ -25,4 +25,12 @@ export class ComptesS {
 effectuervir(virement:any){
     return this.http.post<Virement>("http://localhost:9000/VersementOperation",virement);
   }
-}
+  suspendre(id:any) {
+    return this.http.get("http://localhost:9000/accs/status/suspended/"+id)
+  }
+  activer(id:any){
+    return this.http.get("http://localhost:9000/accs/status/activated/"+id)
+  }
+  suprimmer(id:any){
+  return this.http.delete("http://localhost:9000/accs/suprimmer/"+id)
+}}

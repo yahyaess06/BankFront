@@ -21,7 +21,7 @@ export class AccountsComponent implements OnInit{
   operationFromGroup!: UntypedFormGroup;
 
   Operations:any
-
+sold:any
   id:any
   op: Operation=new Operation();
 v: Virement=new Virement();
@@ -38,7 +38,6 @@ v: Virement=new Virement();
   }
   ngOnInit(): void {
     this.id = this.router.snapshot.queryParamMap.get('idc');
-    console.log(this.id)
     this.getOperations();
   }
   getOperations(){
