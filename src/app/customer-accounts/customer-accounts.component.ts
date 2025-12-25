@@ -15,7 +15,6 @@ import {ComptesS} from '../CompteService/comptes-s';
 export class CustomerAccountsComponent implements OnInit {
 
   Comptes!: any;
-   status="activated";
 
   constructor(private router: ActivatedRoute,
               private route:Router,
@@ -26,12 +25,11 @@ id:any;
   name:any;
   email:any;
   ngOnInit(): void {
-
     this.id = this.router.snapshot.queryParamMap.get('id');
-
     this.name = this.router.snapshot.queryParamMap.get('name');
     this.email = this.router.snapshot.queryParamMap.get('email');
     this.getComptes();
+
   }
 ops(id:any){
   this.route.navigate(['accounts'],{queryParams:{
@@ -55,7 +53,7 @@ ops(id:any){
      this.cs.suspendre(id).subscribe({
        next:(res)=>{
          if (res==true){
-           this.status="suspended";
+           this.getComptes()
            this.cd.detectChanges();
          }
        },error:err=>console.log(err)
@@ -66,7 +64,7 @@ ops(id:any){
     confirm("vous voulez vraiment suprimmer ce compte?")
 this.cs.suprimmer(id).subscribe({
   next:(res)=>{
-   this.getComptes()
+    this.getComptes()
       this.cd.detectChanges();
 
   },error:err=>console.log(err)
@@ -76,10 +74,18 @@ this.cs.suprimmer(id).subscribe({
      this.cs.activer(id).subscribe({
        next:(res)=>{
          if (res==true){
-           this.status="activated";
+           this.getComptes()
            this.cd.detectChanges();
          }
        },error:err=>console.log(err)
      })
+  }
+
+  ajc(id:any) {
+    this.route.navigate(['CreerAcc'],{
+      queryParams:{
+        idclient:id
+      }
+    })
   }
 }

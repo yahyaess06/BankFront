@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Operation} from '../CreditModel/operation';
 import {Virement} from '../virementModel/virement';
+import {Cbdto} from '../CompteModel/Cbdto';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,9 @@ import {Virement} from '../virementModel/virement';
 
 export class ComptesS {
   constructor(private http: HttpClient) {
+  }
+  getCompte(id:any){
+    return this.http.get("http://localhost:9000/accs/"+id)
   }
   getComptes(id:any) {
     return this.http.get("http://localhost:9000/accsbyclid/"+id);
@@ -33,4 +37,14 @@ effectuervir(virement:any){
   }
   suprimmer(id:any){
   return this.http.delete("http://localhost:9000/accs/suprimmer/"+id)
-}}
+}
+ajouterComptec(cbdto:any){
+    return this.http.post<Cbdto>("http://localhost:9000/AjouterAccourant",cbdto)
+}
+  ajouterComptee(cbdto:any){
+    return this.http.post<Cbdto>("http://localhost:9000/AjouterAcepargne",cbdto)
+  }
+  getOplyom(){
+    return this.http.get("http://localhost:9000/Oprations/aujourdhui")
+  }
+}

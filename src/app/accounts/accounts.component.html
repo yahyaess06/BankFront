@@ -1,5 +1,14 @@
 <div class="row g-3">
 
+  <div class="border rounded p-3 mb-4 bg-light">
+    <h5 class="text-primary mb-0 d-flex align-items-center gap-2">
+      <i class="bi bi-wallet2 fs-4"></i>
+      Account Sold :
+      <span class="text-success fw-bold ms-2">
+            {{ Compte.sold }} {{ Compte.devise }}
+        </span>
+    </h5>
+  </div>
   <!-- Account Operations Table -->
   <div class="col-lg-6">
     <div class="shadow-sm rounded-4 p-4 bg-white">
@@ -18,7 +27,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let op of Operations">
-            <td>{{ op.dateOp | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+            <td>{{ op.dateOp | date:'dd/MM/yyyy' }}</td>
             <td><span class="badge bg-secondary">{{ op.type_operation }}</span></td>
             <td class="text-end">{{ op.montant }}</td>
           </tr>
@@ -55,12 +64,14 @@
 
         <!-- Montant -->
         <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Amount" formControlName="amount">
+          <input type="Number" class="form-control" placeholder="Amount" formControlName="amount">
         </div>
+        <span class="text-danger fw-bold">{{eror}}</span><br>
         <!-- Bouton submit -->
-        <button type="submit" class="btn btn-success">Submit Operation</button>
+        <button type="submit" class="btn btn-success my-4">Submit Operation</button>
 
       </form>
+
     </div>
   </div>
 

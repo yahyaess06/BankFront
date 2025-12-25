@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup} 
 import { Router, RouterLink } from '@angular/router';
 import { Customer } from '../model/customer.model';
 import { CustomerService } from '../Clientservice/customer.service';
+import {ComptesS} from '../CompteService/comptes-s';
 
 @Component({
   selector: 'app-customers',
@@ -21,13 +22,15 @@ export class CustomersComponent implements OnInit {
   acc_id!: any;
   clients!: Customer[];
   searchFormGroup!: UntypedFormGroup;
-  errorMessage = '';
+  eror = '';
+  ops!:any;
 
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
     private cs: CustomerService,
-    private dt: ChangeDetectorRef
+    private dt: ChangeDetectorRef,
+    private css: ComptesS
   ) {
     this.searchFormGroup = this.fb.group({
       keyword: ['']
@@ -36,6 +39,8 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getClients();
+    this.voireoplyom();
+    this.dt.detectChanges();
   }
 
   getClients(): void {
@@ -67,9 +72,29 @@ export class CustomersComponent implements OnInit {
   }
 
   opps() {
-    this.router.navigate(['accounts'],{
-      queryParams:{
-        idc:this.acc_id
+   let idcompte=this.acc_id.trim();
+    this.css.getCompte(idcompte).subscribe({
+      next:(res:any)=>{
+      this.router.navigate(['accounts'],{
+        queryParams:{
+          idc:idcompte
+        }
+      })
+    },error:(err:any)=>{
+
+        this.eror="Erreur, Compte inexistant ! ";
+        this.dt.detectChanges();
+    }
+  })
+
+  }
+  voireoplyom(){
+    this.css.getOplyom().subscribe({
+      next:(res:any)=>{
+        this.ops=res;
+        this.dt.detectChanges();
+      },error:(err:any)=>{
+        console.log(err)
       }
     })
   }

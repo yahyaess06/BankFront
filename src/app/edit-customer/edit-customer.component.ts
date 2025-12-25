@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../Clientservice/customer.service';
 import { Customer } from '../model/customer.model';
@@ -7,7 +7,7 @@ import { Customer } from '../model/customer.model';
 @Component({
   selector: 'app-edit-customer',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './edit-customer.component.html',
   styleUrls: ['./edit-customer.component.css']
 })

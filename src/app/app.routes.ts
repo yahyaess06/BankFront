@@ -7,6 +7,7 @@ import { NewCustomerComponent } from './new-customer/new-customer.component';
 import { CustomerAccountsComponent } from './customer-accounts/customer-accounts.component';
 
 import { authGuard } from '../auth.guard';
+import {CreerAcc} from './creer-acc/creer-acc';
 
 export const routes: Routes = [
   // Route de login accessible sans authentification
@@ -19,7 +20,8 @@ export const routes: Routes = [
     children: [
       { path: 'customers', component: CustomersComponent },
       { path: 'customers/edit/:id', component: EditCustomerComponent },
-      { path: 'accounts', component: AccountsComponent },
+      { path: 'CreerAcc', component: CreerAcc },
+      {path:'accounts',component: AccountsComponent },
       { path: 'new-customer', component: NewCustomerComponent },
       { path: 'customer-accounts', component: CustomerAccountsComponent },
       // Redirection par défaut après login

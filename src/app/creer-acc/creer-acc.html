@@ -1,0 +1,67 @@
+<div class="container mt-5">
+
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+
+      <div class="card shadow-sm border-0 rounded-4">
+
+        <div class="card-header bg-white border-0 text-center">
+          <h4 class="fw-bold text-primary mb-0">
+            <i class="bi bi-pencil-square"></i> Nouveau Compte pour le Client :
+          </h4>
+        </div>
+        @if(comptetype === 'courant') {
+          <button
+            (click)="ctype()"
+            class="btn btn-primary btn-sm px-2 mx-5 py-1 fw-semibold shadow-sm w-auto"
+          >
+            Compte {{ comptetype }}
+          </button>
+        } @else {
+          <button
+            (click)="ctypee()"
+            class="btn btn-success btn-sm px-2 py-1 mx-5 fw-semibold shadow-sm w-auto"
+          >
+            Compte {{ comptetype }}
+          </button>
+        }
+        <div class="card-body p-4">
+
+          <form [formGroup]="compteForm" (ngSubmit)="updateCustomer()">
+            <input type="hidden" class="form-control" formControlName="id">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Solde :</label>
+              <input type="Number" class="form-control" formControlName="sold" placeholder="sold">
+            </div>
+            <input type="hidden"  class="form-control" formControlName="type" placeholder="type">
+              <input type="hidden" class="form-control" formControlName="devise" placeholder="devise">
+            @if (comptetype=="courant"){
+            <div class="mb-3">
+              <label class="form-label fw-semibold">decouvert :</label>
+              <input type="Number" class="form-control" formControlName="decouvert" placeholder="decouvert">
+            </div>} @else {
+              <div class="mb-3">
+              <label class="form-label fw-semibold">Taux d'interet :</label>
+              <input type="Number" class="form-control" formControlName="tauxInteret" placeholder="tauxInteret">
+              </div>
+            }
+
+            <div class="d-flex justify-content-between mt-4">
+              <button type="submit" class="btn btn-primary px-4" [disabled]="compteForm.invalid">
+                <i class="bi bi-check-circle"></i> Ajouter
+              </button>
+
+              <button type="button" class="btn btn-outline-secondary" [routerLink]="['/customers']">
+                <i class="bi bi-x-circle"></i> Cancel
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
