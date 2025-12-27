@@ -58,7 +58,7 @@ export class EditCustomerComponent implements OnInit {
 
     this.customerService.updateCustomer(updatedCustomer).subscribe({
       next: () => {
-        this.router.navigate(['/customers']);
+        this.router.navigate(['/admin/customers']);
       },
       error: (err) => {
         console.error('Erreur lors de la mise à jour du client', err);

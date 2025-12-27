@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {Auth} from '../service/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -9,21 +10,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent  {
 
   accountName: string = 'Admin';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,public auth:Auth) {}
 
-  ngOnInit(): void {
-    const storedName = localStorage.getItem('accountName');
-    if (storedName) {
-      this.accountName = storedName;
-    }
-  }
+
 
   logout(): void {
-    localStorage.clear();
+    this.auth.logout();
     this.router.navigate(['/login']);
   }
 }

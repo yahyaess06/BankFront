@@ -35,7 +35,7 @@ export class NewCustomerComponent {
         .subscribe({
           next: () => {
             alert('Customer saved successfully!');
-            this.router.navigate(['/customers']);
+            this.router.navigate(['/admin/customers']);
           },
           error: err => {
             console.error(err);

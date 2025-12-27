@@ -36,7 +36,6 @@ export class CustomersComponent implements OnInit {
       keyword: ['']
     });
   }
-
   ngOnInit(): void {
     this.getClients();
     this.voireoplyom();
@@ -46,7 +45,8 @@ export class CustomersComponent implements OnInit {
   getClients(): void {
     const keyword = this.searchFormGroup.value.keyword.trim();
     this.cs.getCustomers(keyword).subscribe({
-      next: (data: Customer[]) => {this.clients = data;
+      next: (data: Customer[]) =>
+      {this.clients = data;
         this.dt.detectChanges();
         },
       error: (err) => console.log(err)
@@ -62,7 +62,7 @@ export class CustomersComponent implements OnInit {
   }
 
   handleCustomerAccounts(client: Customer) {
-    this.router.navigate(['customer-accounts'],{
+    this.router.navigate(['admin/customer-accounts'],{
       queryParams:{
         id:client.id,
         name:client.name,
@@ -75,7 +75,7 @@ export class CustomersComponent implements OnInit {
    let idcompte=this.acc_id.trim();
     this.css.getCompte(idcompte).subscribe({
       next:(res:any)=>{
-      this.router.navigate(['accounts'],{
+      this.router.navigate(['/admin/accounts'],{
         queryParams:{
           idc:idcompte
         }

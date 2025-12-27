@@ -54,7 +54,7 @@ this.cbdto.sold=this.compteForm.value.sold;
     this.sc.ajouterComptec(this.cbdto).subscribe({
       next:(res:any)=>{
         alert("compte ajouter avec succes");
-        this.route.navigate(['/customers'])
+        this.route.navigate(['/admin/customers'])
       },error:(err:any)=>{
         this.error="erreur, vous ne pouvez pas ajouter ce compte ";
       }
@@ -64,7 +64,7 @@ this.cbdto.sold=this.compteForm.value.sold;
       this.sc.ajouterComptee(this.cbdto).subscribe({
         next:(res:any)=>{
         alert("compte ajouter avec succes");
-        this.route.navigate(['/customers'])
+        this.route.navigate(['/admin/customers'])
       },error:(err:any)=>{
             this.error="erreur, vous ne pouvez pas ajouter ce compte ";
       }}

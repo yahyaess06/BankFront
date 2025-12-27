@@ -1,23 +1,19 @@
 <nav class="navbar navbar-expand-lg bg-white shadow-sm px-3">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-primary" routerLink="/">
+    <a class="navbar-brand fw-bold text-primary" routerLink="customers">
       <i class="bi bi-bank2"></i> BankingApp
     </a>
 
     <div class="d-flex w-100 justify-content-between align-items-center">
       <ul class="nav gap-3">
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-dark" routerLink="/">
+          <a class="nav-link fw-semibold text-dark" routerLink="customers">
             <i class="bi bi-house"></i> Home
           </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-dark" routerLink="/customers">
-            <i class="bi bi-search"></i> Search Customers
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-semibold text-dark" routerLink="/new-customer">
+          <a class="nav-link fw-semibold text-dark" routerLink="new-customer">
             <i class="bi bi-person-plus"></i> New Customer
           </a>
         </li>
@@ -25,8 +21,9 @@
 
       <div class="d-flex align-items-center gap-3">
         <span class="fw-semibold text-secondary">
-          <i class="bi bi-person-circle"></i> {{ accountName }}
-        </span>
+          @if(this.auth.isAUthenticated){
+          <i class="bi bi-person-circle"></i> {{ this.auth.username }}
+          }</span>
         <button class="btn btn-outline-danger btn-sm" (click)="logout()">
           <i class="bi bi-box-arrow-right"></i> Logout
         </button>

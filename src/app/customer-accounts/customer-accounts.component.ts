@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {ComptesS} from '../CompteService/comptes-s';
+import {Auth} from '../service/auth';
 
 @Component({
   selector: 'app-customer-accounts',
@@ -17,7 +18,7 @@ export class CustomerAccountsComponent implements OnInit {
   Comptes!: any;
 
   constructor(private router: ActivatedRoute,
-              private route:Router,
+              private route:Router,public auth:Auth,
               private cs: ComptesS
   ,private cd:ChangeDetectorRef) {
   }
@@ -32,7 +33,7 @@ id:any;
 
   }
 ops(id:any){
-  this.route.navigate(['accounts'],{queryParams:{
+  this.route.navigate(['admin/accounts'],{queryParams:{
     idc:id
   }})
 }
@@ -82,7 +83,7 @@ this.cs.suprimmer(id).subscribe({
   }
 
   ajc(id:any) {
-    this.route.navigate(['CreerAcc'],{
+    this.route.navigate(['admin/CreerAcc'],{
       queryParams:{
         idclient:id
       }

@@ -8,27 +8,35 @@ import { CustomerAccountsComponent } from './customer-accounts/customer-accounts
 
 import { authGuard } from '../auth.guard';
 import {CreerAcc} from './creer-acc/creer-acc';
+import {Admin} from './admin/admin';
+import {authentificationGuard} from './gaurds/authentification-guard';
+import {NotAuthorizedComponent} from './not-authorized.component/not-authorized.component';
+import {autorizationGuard} from './gaurds/autorization-guard';
 
 export const routes: Routes = [
-  // Route de login accessible sans authentification
-  { path: 'login', component: LoginComponent },
 
-  // Routes protégées par le guard
-  {
-    path: '',
-    canActivate: [authGuard],
-    children: [
-      { path: 'customers', component: CustomersComponent },
-      { path: 'customers/edit/:id', component: EditCustomerComponent },
-      { path: 'CreerAcc', component: CreerAcc },
-      {path:'accounts',component: AccountsComponent },
-      { path: 'new-customer', component: NewCustomerComponent },
-      { path: 'customer-accounts', component: CustomerAccountsComponent },
-      // Redirection par défaut après login
-      { path: '', redirectTo: 'customers', pathMatch: 'full' }
-    ]
-  },
+      { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {path: "admin",component: Admin , children : [
 
-  // Redirection pour toutes les routes inconnues
-  { path: '**', redirectTo: 'login' }
+      { path: 'customers', component: CustomersComponent
+          ,canActivate:[authentificationGuard]},
+      { path: 'customers/edit/:id', component: EditCustomerComponent
+        ,canActivate:[authentificationGuard]},
+      { path: 'CreerAcc', component: CreerAcc
+        ,canActivate:[authentificationGuard]},
+      {path:'accounts',component: AccountsComponent
+        ,canActivate:[authentificationGuard]},
+      { path: 'new-customer', component: NewCustomerComponent
+        ,canActivate:[authentificationGuard]},
+      { path: 'customer-accounts', component: CustomerAccountsComponent
+        ,canActivate:[authentificationGuard]},
+      {
+        path:"notAuthorized", component: NotAuthorizedComponent
+      }
+
+
+    ]},
+
+
 ];

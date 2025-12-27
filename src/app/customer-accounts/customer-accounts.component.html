@@ -3,7 +3,7 @@
   <!-- Customer Preview -->
   <div class="shadow-sm rounded-4 p-4 bg-white mb-4">
     <h5 class="mb-3 text-primary">
-      <i class="bi bi-person-badge"></i> Customer Preview
+      <i class="bi bi-person-badge"></i>  CLient :
     </h5>
 
     <div class="d-flex justify-content-between mb-2">
@@ -20,8 +20,9 @@
       <span class="text-secondary">Email Client </span>
       <strong>{{ email }}</strong>
     </div>
+    @if (this.auth.roles.includes("ADMIN")) {
     <div><button class="bg-info-subtle rounded-2 px-3 py-2 fw-bold " (click)="ajc(id)">Ajouter un compte</button></div>
-  </div>
+    } </div>
 <div class="align-items-center">
   <span class="fw-bold fs-5 text-primary border-bottom border-2 pb-1">
   Accounts
@@ -74,6 +75,7 @@
               (click)="ops(acc.id)">
         View Details
       </button>
+  @if (this.auth.roles.includes("ADMIN")) {
   @if (acc.status=="ACTIVATED") {
     <button class="btn btn-outline-warning btn-sm mb-3 fw-bold"
             (click)="suspendre(acc.id)"
@@ -86,7 +88,7 @@
   <button class="btn btn-danger btn-sm mb-3 fw-bold"
          (click)="delete(acc.id)"
   >Supprimer</button>
-
+  }
 </div>
 
     </div>
