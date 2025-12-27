@@ -46,6 +46,7 @@ export class Auth {
     this.accessToken = undefined;
     this.username= undefined;
     this.roles = undefined;
+    window.localStorage.removeItem("jwt-token");
   }
 
   loadjwt() {
