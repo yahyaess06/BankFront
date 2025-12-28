@@ -1,33 +1,50 @@
-<nav class="navbar navbar-expand-lg bg-white shadow-sm px-3">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-primary" routerLink="customers">
-      <i class="bi bi-bank2"></i> BankingApp
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] px-6 py-3">
+  <div class="container mx-auto flex items-center justify-between">
+
+    <a class="group flex items-center gap-2 transition-all duration-300" routerLink="customers">
+      <div class="bg-[#004a99] group-hover:bg-[#FF8C00] p-2 rounded-xl transition-colors duration-300 shadow-lg shadow-blue-200 group-hover:shadow-orange-200">
+        <i class="bi bi-bank2 text-white text-xl"></i>
+      </div>
+      <span class="font-black text-2xl tracking-tighter text-[#172b4d] group-hover:text-[#FF8C00] transition-colors">
+        Banking<span class="text-[#004a99] group-hover:text-[#FF8C00]">App</span>
+      </span>
     </a>
 
-    <div class="d-flex w-100 justify-content-between align-items-center">
-      <ul class="nav gap-3">
-        <li class="nav-item">
-          <a class="nav-link fw-semibold text-dark" routerLink="customers">
-            <i class="bi bi-house"></i> Home
+    <div class="hidden md:flex items-center gap-8">
+      <ul class="flex items-center gap-2">
+        <li>
+          <a class="flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-slate-600 hover:text-[#FF8C00] hover:bg-orange-50 transition-all duration-300 group" routerLink="customers">
+            <i class="bi bi-house text-lg group-hover:scale-110 transition-transform"></i>
+            Home
           </a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link fw-semibold text-dark" routerLink="new-customer">
-            <i class="bi bi-person-plus"></i> New Customer
+        <li>
+          <a class="flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-slate-600 hover:text-[#FF8C00] hover:bg-orange-50 transition-all duration-300 group" routerLink="new-customer">
+            <i class="bi bi-person-plus text-lg group-hover:scale-110 transition-transform"></i>
+            New Customer
           </a>
         </li>
       </ul>
-
-      <div class="d-flex align-items-center gap-3">
-        <span class="fw-semibold text-secondary">
-          @if(this.auth.isAUthenticated){
-          <i class="bi bi-person-circle"></i> {{ this.auth.username }}
-          }</span>
-        <button class="btn btn-outline-danger btn-sm" (click)="logout()">
-          <i class="bi bi-box-arrow-right"></i> Logout
-        </button>
-      </div>
     </div>
+
+    <div class="flex items-center gap-6">
+      @if(this.auth.isAUthenticated){
+        <div class="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100 transition-all hover:border-orange-200">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#004a99] to-[#0072ff] flex items-center justify-center text-white text-xs font-black">
+            {{ this.auth.username.charAt(0).toUpperCase() }}
+          </div>
+          <span class="font-bold text-slate-700 text-sm hidden sm:block">
+          {{ this.auth.username }}
+        </span>
+        </div>
+      }
+
+      <button (click)="logout()"
+              class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest border-2 border-slate-100 text-slate-400 hover:border-[#ff3b30] hover:bg-[#ff3b30] hover:text-white hover:shadow-[0_8px_20px_rgba(255,59,48,0.3)] transition-all duration-300 active:scale-95">
+        <i class="bi bi-box-arrow-right text-base"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+
   </div>
 </nav>

@@ -1,78 +1,135 @@
-<div class="row g-3">
+<div class="fixed inset-0 -z-10 bg-[#f8fafc]">
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px]"></div>
+</div>
 
-  <div class="border rounded p-3 mb-4 bg-light">
-    <h5 class="text-primary mb-0 d-flex align-items-center gap-2">
-      <i class="bi bi-wallet2 fs-4"></i>
-      Account Sold :
-      <span class="text-success fw-bold ms-2">
-            {{ Compte.sold }} {{ Compte.devise }}
-        </span>
-    </h5>
-  </div>
-  <!-- Account Operations Table -->
-  <div class="col-lg-6">
-    <div class="shadow-sm rounded-4 p-4 bg-white">
-      <h5 class="mb-4 text-primary">
-        <i class="bi bi-wallet2"></i> Account Operations
-      </h5>
+<div class="container mx-auto py-8 px-4 animate-[fadeIn_0.8s_ease-out]">
 
-      <div class="table-responsive">
-        <table class="table table-hover align-middle">
-          <thead class="table-light">
-          <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th class="text-end">Amount</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let op of Operations">
-            <td>{{ op.dateOp | date:'dd/MM/yyyy' }}</td>
-            <td><span class="badge bg-secondary">{{ op.type_operation }}</span></td>
-            <td class="text-end">{{ op.montant }}</td>
-          </tr>
-          </tbody>
-        </table>
+  <div class="relative overflow-hidden bg-gradient-to-br from-[#004a99] to-[#0072ff] rounded-[2.5rem] p-10 mb-10 shadow-[0_25px_50px_rgba(0,74,153,0.3)] text-white border border-white/20">
+    <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+    <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-400/20 rounded-full blur-2xl"></div>
+
+    <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="text-center md:text-left">
+        <p class="text-blue-100 text-xs font-black uppercase tracking-[0.3em] mb-3 flex items-center justify-center md:justify-start gap-2">
+          <i class="bi bi-shield-check"></i> Solde Disponible
+        </p>
+        <h2 class="text-5xl md:text-6xl font-black tracking-tighter flex items-baseline gap-3">
+          {{ Compte.sold | number:'1.2-2' }}
+          <span class="text-2xl font-bold opacity-60">{{ Compte.devise }}</span>
+        </h2>
       </div>
-
+      <div class="bg-white/10 backdrop-blur-md p-6 rounded-[2rem] border border-white/20 flex items-center justify-center shadow-inner">
+        <i class="bi bi-wallet2 text-5xl"></i>
+      </div>
     </div>
   </div>
 
-  <!-- New Operation Form -->
-  <div class="col-lg-6">
-    <div class="shadow-sm rounded-4 p-4 bg-white">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-      <h5 class="mb-4 text-success">
-        <i class="bi bi-arrow-left-right"></i> New Operation
-      </h5>
-
-      <form [formGroup]="operationFromGroup" (ngSubmit)="handleAccountOperation()">
-
-        <!-- Type d'opération -->
-        <div class="mb-3">
-          <label class="form-label">Operation Type</label><br>
-          <input type="radio" formControlName="operationType" value="DEBIT"
-          ><span class="font-bold me-2"> DEBIT</span>
-          <input type="radio" formControlName="operationType" value="CREDIT"> <span class="font-bold me-2"> CREDIT</span>
-          <input type="radio" formControlName="operationType" value="TRANSFER"> <span class="font-bold me-2"> TRANSFER</span>
+    <div class="animate-[slideRight_0.6s_ease-out]">
+      <div class="bg-white rounded-[2.5rem] shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-slate-100 p-8 h-full">
+        <div class="flex items-center justify-between mb-8">
+          <h5 class="text-[#172b4d] font-black text-xl flex items-center gap-3">
+            <span class="p-2 bg-blue-50 text-[#004a99] rounded-xl">
+              <i class="bi bi-list-check"></i>
+            </span>
+            Derniers Mouvements
+          </h5>
         </div>
 
-        <!-- Destination si TRANSFER -->
-        <div class="mb-3" *ngIf="operationFromGroup.value.operationType === 'TRANSFER'">
-          <input type="text" class="form-control" placeholder="Destination Account ID" formControlName="accountDestination">
+        <div class="overflow-hidden rounded-2xl border border-slate-50">
+          <table class="min-w-full">
+            <thead class="bg-slate-50/80">
+            <tr>
+              <th class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Date</th>
+              <th class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Type</th>
+              <th class="px-6 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">Montant</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-50">
+            <tr *ngFor="let op of Operations" class="group hover:bg-slate-50/80 transition-all duration-300">
+              <td class="px-6 py-5 text-sm font-bold text-slate-500">{{ op.dateOp | date:'dd MMM yyyy' }}</td>
+              <td class="px-6 py-5">
+                  <span [class]="op.type_operation === 'DEBIT' ? 'bg-red-50 text-[#ff3b30]' : 'bg-emerald-50 text-emerald-600'"
+                        class="px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-tighter">
+                    {{ op.type_operation }}
+                  </span>
+              </td>
+              <td [class]="op.type_operation === 'DEBIT' ? 'text-[#ff3b30]' : 'text-emerald-600'"
+                  class="px-6 py-5 text-right font-black text-base">
+                {{ op.type_operation === 'DEBIT' ? '-' : '+' }}{{ op.montant | number:'1.2-2' }}
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-
-        <!-- Montant -->
-        <div class="mb-3">
-          <input type="Number" class="form-control" placeholder="Amount" formControlName="amount">
-        </div>
-        <span class="text-danger fw-bold">{{eror}}</span><br>
-        <!-- Bouton submit -->
-        <button type="submit" class="btn btn-success my-4">Submit Operation</button>
-
-      </form>
-
+      </div>
     </div>
-  </div>
 
+    <div class="animate-[slideLeft_0.6s_ease-out]">
+      <div class="bg-white rounded-[2.5rem] shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-slate-100 p-8">
+        <h5 class="text-[#172b4d] font-black text-xl mb-8 flex items-center gap-3">
+          <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl">
+            <i class="bi bi-arrow-left-right"></i>
+          </span>
+          Nouvelle Opération
+        </h5>
+
+        <form [formGroup]="operationFromGroup" (ngSubmit)="handleAccountOperation()" class="space-y-6">
+
+          <div class="space-y-3">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Type de flux</label>
+            <div class="grid grid-cols-3 gap-2 p-1.5 bg-slate-100 rounded-[1.5rem]">
+              <label class="relative cursor-pointer">
+                <input type="radio" formControlName="operationType" value="DEBIT" class="peer hidden">
+                <div class="text-center py-2.5 rounded-xl text-xs font-black transition-all peer-checked:bg-white peer-checked:text-[#ff3b30] peer-checked:shadow-sm text-slate-500 uppercase tracking-tighter">Débit</div>
+              </label>
+              <label class="relative cursor-pointer">
+                <input type="radio" formControlName="operationType" value="CREDIT" class="peer hidden">
+                <div class="text-center py-2.5 rounded-xl text-xs font-black transition-all peer-checked:bg-white peer-checked:text-emerald-600 peer-checked:shadow-sm text-slate-500 uppercase tracking-tighter">Crédit</div>
+              </label>
+              <label class="relative cursor-pointer">
+                <input type="radio" formControlName="operationType" value="TRANSFER" class="peer hidden">
+                <div class="text-center py-2.5 rounded-xl text-xs font-black transition-all peer-checked:bg-white peer-checked:text-[#004a99] peer-checked:shadow-sm text-slate-500 uppercase tracking-tighter">Virement</div>
+              </label>
+            </div>
+          </div>
+
+          <div *ngIf="operationFromGroup.value.operationType === 'TRANSFER'" class="animate-[fadeIn_0.4s_ease-out] space-y-2">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Compte Bénéficiaire</label>
+            <div class="relative">
+              <i class="bi bi-person-check absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"></i>
+              <input type="text"
+                     class="w-full bg-slate-50 border-2 border-slate-50 rounded-2xl pl-12 pr-4 py-4 font-bold text-[#172b4d] focus:border-[#004a99] focus:bg-white transition-all outline-none"
+                     placeholder="ID du compte destination..."
+                     formControlName="accountDestination">
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Montant à transférer</label>
+            <div class="relative group">
+              <input type="Number"
+                     class="w-full bg-slate-50 border-2 border-slate-50 rounded-2xl px-6 py-5 text-3xl font-black text-[#004a99] focus:border-emerald-500 focus:bg-white transition-all outline-none"
+                     placeholder="0.00"
+                     formControlName="amount">
+              <span class="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-300 text-xl">{{ Compte.devise }}</span>
+            </div>
+          </div>
+
+          <div *ngIf="eror" class="flex items-center gap-3 p-4 bg-red-50 rounded-2xl border border-red-100 animate-pulse">
+            <i class="bi bi-exclamation-triangle-fill text-[#ff3b30]"></i>
+            <span class="text-[#ff3b30] text-[10px] font-black uppercase">{{eror}}</span>
+          </div>
+
+          <button type="submit"
+                  class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black py-5 rounded-[1.5rem] shadow-xl shadow-emerald-500/20 transition-all hover:-translate-y-1 active:scale-95 uppercase tracking-widest text-sm">
+            Exécuter la Transaction
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
 </div>

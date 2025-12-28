@@ -1,54 +1,61 @@
-<div class="container mx-auto py-6">
+<div class="fixed inset-0 -z-10 bg-[#f0f4f8] overflow-hidden">
+  <div class="absolute top-[-10%] left-[-10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-[#004a99] to-[#0072ff] opacity-10 animate-pulse"></div>
+  <div class="absolute bottom-[-10%] right-[-10%] w-[300px] h-[300px] rounded-full bg-gradient-to-br from-[#004a99] to-[#0072ff] opacity-10 animate-pulse delay-700"></div>
+</div>
 
-  <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+<div class="container mx-auto py-8 px-4 animate-[fadeIn_0.8s_ease-out]">
 
-    <div class="flex justify-between items-center mb-6">
-      <h5 class="text-indigo-600 font-semibold text-xl flex items-center">
-        <i class="bi bi-people me-2"></i> Customers
+  <div class="bg-white/90 backdrop-blur-lg rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,74,153,0.1)] p-8 mb-8 border border-white">
+
+    <div class="flex justify-between items-center mb-10 border-b border-slate-100 pb-6">
+      <h5 class="text-[#004a99] font-black text-3xl flex items-center tracking-tight">
+        <span class="bg-[#004a99] p-3 rounded-2xl me-4 shadow-lg shadow-blue-200">
+          <i class="bi bi-people text-white"></i>
+        </span>
+        Gestion Clients
       </h5>
     </div>
 
-
-    <form [formGroup]="searchFormGroup" (ngSubmit)="getClients()" class="mb-6">
-      <div class="flex gap-4">
-        <input type="text"
-               class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-               placeholder="Search by keyword..."
-               formControlName="keyword">
-        <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2 rounded-lg flex items-center">
-          <i class="bi bi-search me-2"></i> Search
+    <form [formGroup]="searchFormGroup" (ngSubmit)="getClients()" class="mb-10">
+      <div class="flex gap-4 p-3 bg-slate-50 rounded-[1.5rem] shadow-inner border border-slate-100">
+        <div class="relative flex-1">
+          <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text"
+                 class="w-full bg-white border-none rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-[#004a99] transition-all outline-none shadow-sm"
+                 placeholder="Rechercher par mot-clé..."
+                 formControlName="keyword">
+        </div>
+        <button class="bg-[#004a99] hover:bg-[#003366] text-white font-bold px-10 py-3.5 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/30">
+          Rechercher
         </button>
       </div>
     </form>
 
-
-    <div class="lg:flex gap-6">
-
-
-      <div class="flex-2 overflow-x-auto">
-        <table class="min-w-full border border-gray-200 rounded-lg overflow-hidden">
-          <thead class="bg-indigo-100 text-indigo-700 font-semibold">
+    <div class="lg:flex gap-8">
+      <div class="flex-[2] overflow-x-auto rounded-[2rem] border border-slate-100 bg-white shadow-sm">
+        <table class="min-w-full">
+          <thead class="bg-gradient-to-r from-[#004a99] to-[#0072ff] text-white">
           <tr>
-            <th class="px-4 py-2 text-right">#</th>
-            <th class="px-4 py-2 text-right">Full Name</th>
-            <th class="px-4 py-2 text-right">Email</th>
-            <th class="px-4 py-2 text-center">Actions</th>
+            <th class="px-6 py-5 text-left text-xs font-bold uppercase tracking-widest">ID</th>
+            <th class="px-6 py-5 text-left text-xs font-bold uppercase tracking-widest">Client</th>
+            <th class="px-6 py-5 text-left text-xs font-bold uppercase tracking-widest">Email</th>
+            <th class="px-6 py-5 text-center text-xs font-bold uppercase tracking-widest">Actions</th>
           </tr>
           </thead>
-          <tbody class="divide-y divide-gray-200">
-          <tr *ngFor="let c of clients" class="hover:bg-indigo-50">
-            <td class="px-4 py-2 text-right">{{ c.id }}</td>
-            <td class="px-4 py-2 text-right font-semibold">{{ c.name }}</td>
-            <td class="px-4 py-2 text-right text-gray-500">{{ c.email }}</td>
-            <td class="px-4 py-2 text-center space-x-1">
-              <button class="btn btn-sm btn-warning me-1" [routerLink]="['/admin/customers/edit', c.id]">
-                <i class="bi bi-pencil"></i>
+          <tbody class="divide-y divide-slate-50">
+          <tr *ngFor="let c of clients" class="group hover:bg-blue-50/50 transition-all duration-300">
+            <td class="px-6 py-5 font-mono text-sm text-slate-400">#{{ c.id }}</td>
+            <td class="px-6 py-5 font-bold text-[#172b4d]">{{ c.name }}</td>
+            <td class="px-6 py-5 text-slate-500">{{ c.email }}</td>
+            <td class="px-6 py-5 text-center space-x-3">
+              <button class="text-amber-500 hover:scale-125 transition-transform" [routerLink]="['/admin/customers/edit', c.id]">
+                <i class="bi bi-pencil-square text-xl"></i>
               </button>
-              <button class="btn btn-outline-danger btn-sm me-1" (click)="handleDeleteCustomer(c)">
-                <i class="bi bi-trash"></i>
+              <button class="text-[#ff3b30] hover:scale-125 transition-transform" (click)="handleDeleteCustomer(c)">
+                <i class="bi bi-trash3-fill text-xl"></i>
               </button>
-              <button class="btn btn-outline-success btn-sm" (click)="handleCustomerAccounts(c)">
-                <i class="bi bi-wallet2"></i>
+              <button class="text-[#004a99] hover:scale-125 transition-transform" (click)="handleCustomerAccounts(c)">
+                <i class="bi bi-wallet2 text-xl"></i>
               </button>
             </td>
           </tr>
@@ -56,42 +63,50 @@
         </table>
       </div>
 
-      <form (ngSubmit)="opps()" class="flex-1 bg-gray-50 p-6 rounded-xl border border-gray-200">
-        <label class="block font-semibold mb-2 text-gray-700">Votre RIB :</label>
+      <form (ngSubmit)="opps()" class="flex-1 bg-gradient-to-br from-slate-50 to-white p-8 rounded-[2rem] border border-slate-200 shadow-xl self-start sticky top-4">
+        <h6 class="text-[#004a99] font-black mb-6 uppercase text-xs tracking-[0.2em]">Consultation Rapide</h6>
+        <label class="block font-bold mb-3 text-slate-600 text-sm">Votre RIB :</label>
         <input type="text" name="nom" [(ngModel)]="acc_id"
-               class="w-full rounded-lg border border-gray-300 px-4 py-2 mb-2 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-               placeholder="ex : f46af49b-7d0e-4060-99c8-cb3ead7d00be" required>
-        <span class="text-red-600 font-semibold">{{ eror }}</span><br>
-        <button class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2 rounded-lg">
-          Chercher
+               class="w-full rounded-xl border-2 border-slate-100 px-4 py-3 mb-2 focus:border-[#004a99] outline-none transition-all"
+               placeholder="ex : f46af49b..." required>
+        <span class="text-[#ff3b30] text-[10px] font-bold uppercase tracking-tighter animate-pulse">{{ eror }}</span>
+        <button class="w-full mt-6 bg-[#004a99] hover:bg-[#003366] text-white font-black py-4 rounded-xl shadow-lg transition-all hover:-translate-y-1">
+          CHERCHER
         </button>
       </form>
-
     </div>
 
-
-    <div class="overflow-x-auto mt-6">
-      <table class="min-w-full border border-gray-200 rounded-lg overflow-hidden">
-        <thead class="bg-indigo-600 text-white font-semibold">
-        <tr>
-          <th class="px-4 py-2">Date D'operation</th>
-          <th class="px-4 py-2">Montant</th>
-          <th class="px-4 py-2">Type d'operation</th>
-          <th class="px-4 py-2">RIB de Compte Bancaire</th>
-        </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-          @for (op of ops; track op){
-        <tr class="hover:bg-indigo-50">
-          <td class="px-4 py-2">{{op.dateOp}}</td>
-          <td class="px-4 py-2">{{op.montant}}</td>
-          <td class="px-4 py-2">{{op.type_operation}}</td>
-          <td class="px-4 py-2">{{op.compteId}}</td>
-        </tr>
-        }
-        </tbody>
-      </table>
+    <div class="mt-12">
+      <h3 class="text-[#004a99] font-bold mb-6 flex items-center">
+        <i class="bi bi-arrow-left-right me-3"></i> Historique Opérations
+      </h3>
+      <div class="overflow-hidden rounded-[2rem] border border-slate-100 shadow-2xl bg-white">
+        <table class="min-w-full">
+          <thead class="bg-[#004a99] text-white">
+          <tr>
+            <th class="px-6 py-4">Date</th>
+            <th class="px-6 py-4">Montant</th>
+            <th class="px-6 py-4 text-center">Statut</th>
+            <th class="px-6 py-4">Compte</th>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            @for (op of ops; track op){
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-6 py-4 text-slate-600 text-sm">{{op.dateOp}}</td>
+                <td class="px-6 py-4 font-black text-[#172b4d]">{{op.montant}} MAD</td>
+                <td class="px-6 py-4 text-center">
+                <span [class]="op.type_operation === 'DEBIT' ? 'bg-red-100 text-[#ff3b30]' : 'bg-green-100 text-green-600'"
+                      class="px-4 py-1 rounded-full text-[10px] font-black uppercase">
+                  {{op.type_operation}}
+                </span>
+                </td>
+                <td class="px-6 py-4 font-mono text-[10px] text-blue-400">{{op.compteId}}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
-
   </div>
 </div>

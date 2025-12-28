@@ -1,7 +1,153 @@
-.navbar-nav .nav-link {
-  cursor: pointer;
+/* --- Variables de Luxe --- */
+:root {
+  --main-blue: #0052cc;
+  --deep-blue: #0747a6;
+  --vibrant-red: #ff3b30;
+  --soft-white: #ffffff;
+  --glass-effect: rgba(255, 255, 255, 0.9);
 }
 
-.navbar-brand i {
-  margin-right: 5px;
+/* --- La Barre de Navigation --- */
+.custom-nav {
+  background: var(--glass-effect) !important;
+  backdrop-filter: blur(15px); /* Effet flou derrière la barre */
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(0, 82, 204, 0.1);
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* --- Logo Premium --- */
+.logo-premium {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-box {
+  background: linear-gradient(135deg, var(--main-blue), var(--deep-blue));
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: white;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+}
+
+.brand-text {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #172b4d;
+  letter-spacing: -0.5px;
+}
+
+.text-blue-bold {
+  color: var(--main-blue);
+}
+
+/* --- Menu de Navigation --- */
+.nav-link {
+  color: #44546f !important;
+  font-weight: 600 !important;
+  padding: 10px 20px !important;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link i {
+  font-size: 1.1rem;
+}
+
+/* Hover : Texte et icône deviennent bleu avec fond léger */
+.nav-link:hover {
+  background: rgba(0, 82, 204, 0.05);
+  color: var(--main-blue) !important;
+  transform: translateY(-2px);
+}
+
+.active-custom {
+  background: rgba(0, 82, 204, 0.1) !important;
+  color: var(--main-blue) !important;
+}
+
+/* --- Badge Utilisateur --- */
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f4f5f7;
+  padding: 6px 16px 6px 6px;
+  border-radius: 30px;
+  border: 1px solid #ebecf0;
+}
+
+.avatar-circle {
+  width: 32px;
+  height: 32px;
+  background: var(--main-blue);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #172b4d;
+  font-size: 0.9rem;
+}
+
+/* --- BOUTON LOGOUT ROUGE (Le clou du spectacle) --- */
+.btn-logout-luxury {
+  background: transparent;
+  border: 2px solid var(--vibrant-red);
+  color: var(--vibrant-red);
+  padding: 8px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.btn-logout-luxury:hover {
+  background: var(--vibrant-red);
+  color: white;
+  box-shadow: 0 8px 20px rgba(255, 59, 48, 0.3);
+  transform: scale(1.05);
+}
+
+.btn-logout-luxury i {
+  transition: transform 0.3s ease;
+}
+
+.btn-logout-luxury:hover i {
+  transform: translateX(4px);
+}
+
+/* --- Animation d'entrée --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.custom-nav {
+  animation: fadeInUp 0.6s ease-out;
 }

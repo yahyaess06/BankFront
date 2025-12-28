@@ -1,46 +1,73 @@
-<div class="container mt-5">
+<div class="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_bottom_left,_#f0f4f8,_#ffffff,_#e0e7ff)]"></div>
 
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5">
+<div class="container mx-auto mt-16 px-4 animate-[fadeIn_0.6s_cubic-bezier(0.23,1,0.32,1)]">
+  <div class="flex justify-center">
+    <div class="w-full max-w-lg">
 
-      <div class="card shadow-sm border-0 rounded-4">
+      <div class="bg-white/90 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_25px_70px_rgba(0,74,153,0.15)] border border-white overflow-hidden relative">
 
-        <div class="card-header bg-white border-0 text-center">
-          <h4 class="fw-bold text-primary mb-0">
-            <i class="bi bi-pencil-square"></i> Edit Customer
-          </h4>
-        </div>
+        <div class="h-2 w-full bg-gradient-to-r from-[#004a99] via-[#0072ff] to-[#ff3b30]"></div>
 
-        <div class="card-body p-4">
+        <div class="p-10">
+          <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-blue-50 text-[#004a99] mb-4 shadow-inner ring-4 ring-white">
+              <i class="bi bi-person-gear text-4xl"></i>
+            </div>
+            <h4 class="text-3xl font-black text-[#172b4d] tracking-tight">
+              Profil Client
+            </h4>
+            <p class="text-slate-400 font-medium text-sm mt-2">Mise à jour des informations d'identification</p>
+          </div>
 
-          <form [formGroup]="customerForm" (ngSubmit)="updateCustomer()">
+          <form [formGroup]="customerForm" (ngSubmit)="updateCustomer()" class="space-y-8">
 
-            <div class="mb-3">
-              <label class="form-label fw-semibold">Full Name</label>
-              <input type="text" class="form-control" formControlName="name" placeholder="Customer name">
+            <div class="group">
+              <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-2 transition-colors group-focus-within:text-[#004a99]">
+                Nom Complet
+              </label>
+              <div class="relative">
+                <i class="bi bi-person absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 transition-colors group-focus-within:text-[#004a99]"></i>
+                <input type="text"
+                       formControlName="name"
+                       class="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl pl-12 pr-4 py-4 font-bold text-[#172b4d] focus:border-[#004a99] focus:bg-white focus:ring-4 focus:ring-blue-500/5 outline-none transition-all"
+                       placeholder="Ex: Jean Dupont">
+              </div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label fw-semibold">Email</label>
-              <input type="email" class="form-control" formControlName="email" placeholder="customer@email.com">
+            <div class="group">
+              <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-2 transition-colors group-focus-within:text-[#004a99]">
+                Adresse Email
+              </label>
+              <div class="relative">
+                <i class="bi bi-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 transition-colors group-focus-within:text-[#004a99]"></i>
+                <input type="email"
+                       formControlName="email"
+                       class="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl pl-12 pr-4 py-4 font-bold text-[#172b4d] focus:border-[#004a99] focus:bg-white focus:ring-4 focus:ring-blue-500/5 outline-none transition-all"
+                       placeholder="client@banque.com">
+              </div>
             </div>
 
-            <div class="d-flex justify-content-between mt-4">
-              <button type="submit" class="btn btn-primary px-4" [disabled]="customerForm.invalid">
-                <i class="bi bi-check-circle"></i> Update
+            <div class="flex flex-col gap-4 pt-4">
+              <button type="submit"
+                      [disabled]="customerForm.invalid"
+                      class="w-full bg-[#004a99] hover:bg-[#003366] disabled:opacity-30 disabled:hover:translate-y-0 text-white font-black py-4 rounded-2xl shadow-xl shadow-blue-500/20 transition-all hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-3 tracking-widest text-sm">
+                <i class="bi bi-shield-check text-lg"></i> ENREGISTRER LES MODIFICATIONS
               </button>
 
-              <button type="button" class="btn btn-outline-secondary" [routerLink]="['/admin/customers']">
-                <i class="bi bi-x-circle"></i> Cancel
+              <button type="button"
+                      [routerLink]="['/admin/customers']"
+                      class="w-full bg-white border-2 border-slate-100 text-slate-400 font-bold py-4 rounded-2xl hover:bg-slate-50 hover:text-slate-600 transition-all flex items-center justify-center gap-2 text-sm tracking-widest">
+                <i class="bi bi-arrow-left"></i> RETOUR
               </button>
             </div>
-
           </form>
-
         </div>
       </div>
 
+      <p class="text-center mt-8 text-slate-400 text-xs flex items-center justify-center gap-2">
+        <i class="bi bi-lock-fill"></i> Connexion sécurisée SSL 256-bit
+      </p>
+
     </div>
   </div>
-
 </div>

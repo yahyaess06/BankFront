@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -20,24 +20,19 @@ export class LoginComponent {
   password = '';
   errorMessage = '';
 
-  constructor(private router: Router,private cs:Auth
+  constructor(private router: Router,private cs:Auth,private dt: ChangeDetectorRef
               ) {}
 
   login() {
-    // if (this.username === 'admin' && this.password === 'admin') {
-    //   localStorage.setItem('isLoggedIn', 'true');
-    //   this.router.navigate(['/customers']);
-    // } else {
-    //   this.errorMessage = 'Login ou mot de passe incorrect';
-    // }
-
     console.log(this.username,this.password)
     this.cs.login(this.username,this.password).subscribe({
       next:(data)=>{
         this.cs.loadprofile(data);
-        this.router.navigateByUrl("/admin")
+        this.router.navigateByUrl("/admin");
       },error:(err)=>{
 console.log(err);
+        this.errorMessage="Erreur, login ou ot de passe incorrrect";
+        this.dt.detectChanges();
     }
     })
 

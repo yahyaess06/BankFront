@@ -1,11 +1,134 @@
-.table-responsive {
-  margin-top: 1rem;
+/* --- 1. LE FOND DYNAMIQUE (Comme ton Login) --- */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: radial-gradient(circle at top right, #eef2ff, #ffffff, #e0e7ff);
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
 }
 
-.table-hover tbody tr:hover {
-  background-color: #f1f3f5;
+/* --- 2. LA CARTE PRINCIPALE (Effet Verre High-Tech) --- */
+.bg-white.rounded-2xl {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 82, 204, 0.15) !important;
+  border-radius: 24px !important;
+  animation: slideInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.btn-warning, .btn-outline-danger, .btn-outline-success {
-  margin-right: 0.3rem;
+/* --- 3. TITRES ET TEXTES --- */
+h5.text-indigo-600 {
+  color: #004a99 !important; /* Bleu Banque */
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+h5.text-indigo-600::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 4px;
+  background: #ff3b30; /* Ligne rouge rubis */
+  border-radius: 2px;
+}
+
+/* --- 4. LES TABLEAUX "FUTURISTES" --- */
+.overflow-x-auto {
+  border-radius: 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  background: white;
+}
+
+/* Header du tableau */
+thead.bg-indigo-100, thead.bg-indigo-600 {
+  background: linear-gradient(90deg, #004a99, #0072ff) !important;
+  color: white !important;
+}
+
+th {
+  padding: 18px !important;
+  font-size: 0.8rem !important;
+  border: none !important;
+}
+
+/* Lignes du tableau avec animation cascade */
+tbody tr {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+tbody tr:hover {
+  background: rgba(0, 74, 153, 0.04) !important;
+  transform: scale(1.01) translateX(10px);
+  box-shadow: -5px 0 0 #004a99;
+}
+
+/* --- 5. LES BOUTONS (Effet Magnétique) --- */
+.btn {
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+/* Bouton Search Bleu */
+.bg-indigo-600 {
+  background: #004a99 !important;
+  border: none !important;
+}
+
+/* Bouton Delete Rouge (Le choc visuel) */
+.btn-outline-danger {
+  border: 2px solid #ff3b30 !important;
+  color: #ff3b30 !important;
+  background: transparent !important;
+}
+
+.btn-outline-danger:hover {
+  background: #ff3b30 !important;
+  color: white !important;
+  box-shadow: 0 8px 16px rgba(255, 59, 48, 0.3);
+}
+
+/* --- 6. LE FORMULAIRE RIB (Panneau Néon) --- */
+form.flex-1.bg-gray-50 {
+  background: #ffffff !important;
+  border: 2px solid #eef2ff !important;
+  box-shadow: inset 0 0 15px rgba(0, 74, 153, 0.05);
+  position: relative;
+}
+
+form.flex-1.bg-gray-50 button {
+  background: linear-gradient(90deg, #004a99, #0072ff) !important;
+  width: 100%;
+}
+
+/* --- 7. ANIMATIONS MAGIQUES --- */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(40px); filter: blur(10px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Animation de pulse sur le RIB en erreur */
+.text-red-600 {
+  animation: pulseError 1.5s infinite;
+}
+
+@keyframes pulseError {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Scrollbar invisible mais stylée */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #004a99;
+  border-radius: 10px;
 }

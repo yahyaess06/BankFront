@@ -1,56 +1,62 @@
-<div class="container-fluid py-5">
+<div class="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_#f0f4f8,_#ffffff,_#e0e7ff)]"></div>
 
-  <div class="row justify-content-center">
-    <div class="col-lg-5 col-md-7">
+<div class="container mx-auto py-12 px-4 animate-[slideIn_0.7s_cubic-bezier(0.23,1,0.32,1)]">
+  <div class="flex justify-center">
+    <div class="w-full max-w-lg">
 
-      <div class="shadow-sm rounded-4 p-4 bg-white">
+      <div class="bg-white/80 backdrop-blur-2xl rounded-[3rem] shadow-[0_30px_80px_rgba(0,74,153,0.15)] border border-white p-10 relative overflow-hidden">
 
-        <h5 class="mb-4 text-primary">
-          <i class="bi bi-person-plus"></i> Create New Customer
-        </h5>
+        <div class="absolute top-0 right-0 w-32 h-32 bg-[#FF8C00]/5 rounded-bl-[100px]"></div>
 
-        <form
-          [formGroup]="newCustomerFormGroup"
-          (ngSubmit)="handleSaveCustomer()">
+        <div class="text-center mb-10">
+          <div class="inline-flex items-center justify-center w-20 h-20 rounded-[2rem] bg-gradient-to-br from-[#004a99] to-[#0072ff] text-white mb-6 shadow-xl shadow-blue-500/30">
+            <i class="bi bi-person-plus-fill text-3xl"></i>
+          </div>
+          <h5 class="text-3xl font-black text-[#172b4d] tracking-tighter">
+            Nouveau Client
+          </h5>
+          <p class="text-slate-400 font-medium text-sm mt-2">Enregistrement d'un nouveau profil bancaire</p>
+        </div>
 
-          <!-- Full Name -->
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Full Name</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="name">
+        <form [formGroup]="newCustomerFormGroup" (ngSubmit)="handleSaveCustomer()" class="space-y-6">
 
-            @if (newCustomerFormGroup.controls['name'].touched &&
-            newCustomerFormGroup.controls['name'].errors?.['required']) {
-              <small class="text-danger">
-                Name is required
-              </small>
+          <div class="space-y-2">
+            <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-2">Nom Complet</label>
+            <div class="relative group">
+              <i class="bi bi-person absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#004a99] transition-colors"></i>
+              <input type="text"
+                     class="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl pl-12 pr-4 py-4 font-bold text-[#172b4d] focus:border-[#004a99] focus:bg-white focus:ring-4 focus:ring-blue-500/5 transition-all outline-none"
+                     placeholder="Ex: Alexander Hamilton"
+                     formControlName="name">
+            </div>
+            @if (newCustomerFormGroup.controls['name'].touched && newCustomerFormGroup.controls['name'].errors?.['required']) {
+              <p class="text-[#ff3b30] text-[10px] font-bold mt-1 ml-2 flex items-center gap-1 animate-bounce">
+                <i class="bi bi-exclamation-circle"></i> Le nom est requis
+              </p>
             }
           </div>
 
-          <!-- Email Address -->
-          <div class="mb-4">
-            <label class="form-label fw-semibold">Email Address</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="email">
-
-            @if (newCustomerFormGroup.controls['email'].touched &&
-            newCustomerFormGroup.controls['email'].errors?.['email']) {
-              <small class="text-danger">
-                Invalid email format
-              </small>
+          <div class="space-y-2">
+            <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-2">Adresse Email Professionnelle</label>
+            <div class="relative group">
+              <i class="bi bi-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#004a99] transition-colors"></i>
+              <input type="text"
+                     class="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl pl-12 pr-4 py-4 font-bold text-[#172b4d] focus:border-[#004a99] focus:bg-white focus:ring-4 focus:ring-blue-500/5 transition-all outline-none"
+                     placeholder="hamilton@banking.com"
+                     formControlName="email">
+            </div>
+            @if (newCustomerFormGroup.controls['email'].touched && newCustomerFormGroup.controls['email'].errors?.['email']) {
+              <p class="text-[#ff3b30] text-[10px] font-bold mt-1 ml-2 flex items-center gap-1 animate-pulse">
+                <i class="bi bi-envelope-x"></i> Format d'email invalide
+              </p>
             }
           </div>
 
-          <!-- Submit Button -->
-          <div class="d-grid">
+          <div class="pt-6">
             <button
-              class="btn btn-primary btn-lg"
+              class="w-full bg-gradient-to-r from-[#004a99] to-[#0072ff] hover:from-[#003366] hover:to-[#004a99] text-white font-black py-5 rounded-[1.5rem] shadow-xl shadow-blue-500/20 transition-all hover:-translate-y-1 active:scale-95 disabled:opacity-30 disabled:hover:translate-y-0 disabled:cursor-not-allowed flex items-center justify-center gap-3 tracking-widest text-sm uppercase"
               [disabled]="!newCustomerFormGroup.valid">
-              <i class="bi bi-save"></i> Save Customer
+              <i class="bi bi-cloud-check-fill text-xl"></i> CRÉER LE COMPTE CLIENT
             </button>
           </div>
 
@@ -58,7 +64,15 @@
 
       </div>
 
+      <div class="mt-8 text-center space-y-2">
+        <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Sécurité Bancaire Certifiée</p>
+        <div class="flex justify-center gap-4">
+          <i class="bi bi-shield-lock text-slate-300 text-xl"></i>
+          <i class="bi bi-fingerprint text-slate-300 text-xl"></i>
+          <i class="bi bi-safe text-slate-300 text-xl"></i>
+        </div>
+      </div>
+
     </div>
   </div>
-
 </div>
